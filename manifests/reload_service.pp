@@ -10,6 +10,8 @@ class consul::reload_service {
   exec { 'reload consul service':
     path        => [$consul::bin_dir,'/bin','/usr/bin'],
     command     => 'consul reload',
+    retries     => 6,  # consul commands fail if it hasn't completed startup
+    try_sleep   => 5,
     refreshonly => true,
   }
 
