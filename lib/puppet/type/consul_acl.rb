@@ -36,8 +36,13 @@ Puppet::Type.newtype(:consul_acl) do
 
   newproperty(:id) do
     desc 'ID of token'
-    validate do |v|
-      raise(Puppet::Error, 'This is a read only property')
+  end
+
+  newproperty(:port) do
+    desc 'consul port'
+    value = 8500 if value.nil?
+    validate do |value|
+      raise ArgumentError, "The port number must be a number" if not value.is_a?(Integer)
     end
   end
 

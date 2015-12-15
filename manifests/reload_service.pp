@@ -7,12 +7,16 @@
 #
 class consul::reload_service {
 
-  exec { 'reload consul service':
-    path        => [$consul::bin_dir,'/bin','/usr/bin'],
-    command     => 'consul reload',
-    tries       => 6,  # consul commands fail if it hasn't completed startup
-    try_sleep   => 5,
-    refreshonly => true,
+  # Don't attempt to reload if we're not supposed to be running.
+  # This can happen during pre-provisioning of a node.
+  if $consul::manage_service == true and $consul::service_ensure == 'running' {
+    exec { 'reload consul service':
+      path        => [$consul::bin_dir,'/bin','/usr/bin'],
+      command     => "consul reload -rpc-addr=${consul::rpc_addr}:${consul::rpc_port}",
+      tries       => 6,  # consul commands fail if it hasn't completed startup
+      try_sleep   => 5,
+      refreshonly => true,
+    }
   }
 
 }
