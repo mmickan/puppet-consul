@@ -12,9 +12,14 @@ class consul::run_service {
 
   if $consul::manage_service == true {
     service { 'consul':
-      ensure => $consul::service_ensure,
-      name   => $init_selector,
-      enable => $consul::service_enable,
+      ensure   => $consul::service_ensure,
+      name     => $init_selector,
+      enable   => $consul::service_enable,
+      # make the provider explicit to work around what appears to be a bug
+      # in Puppet on Ubuntu 15.10.  TODO: try this without explicitly
+      # specifying the provider after packages are released by Puppetlabs
+      # for Puppet on Ubuntu 15.10 or later
+      provider => $consul::init_style,
     }
   }
 
