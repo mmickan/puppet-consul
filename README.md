@@ -158,10 +158,10 @@ it easy to declare in hiera.
 
 ## Removing Service, Check and Watch definitions
 
-Do `ensure => absent` while removing existing service, check and watch
-definitions. This ensures consul will be reloaded via `SIGHUP`. If you have
-`purge_config_dir` set to `true` and simply remove the definition it will cause
-consul to restart.
+These are now placed in a sub-directory and loaded with an additional
+config-dir parameter to the service, so it is now safe to remove these these
+without first doing `ensure => absent`. Note that the migration will trigger
+a restart, due to purging of old files in the root configuration directory.
 
 ## ACL Definitions
 

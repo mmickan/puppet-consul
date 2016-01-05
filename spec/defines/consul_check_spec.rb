@@ -19,7 +19,7 @@ describe 'consul::check' do
       'script' => 'true'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -34,7 +34,7 @@ describe 'consul::check' do
       'service_id' => 'my_service'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -50,7 +50,7 @@ describe 'consul::check' do
       'token'    => 'too-cool-for-this-script'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"interval" *: *"30s"/) \
@@ -65,7 +65,7 @@ describe 'consul::check' do
       'http' => 'localhost'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -80,7 +80,7 @@ describe 'consul::check' do
       'service_id' => 'my_service'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -96,7 +96,7 @@ describe 'consul::check' do
       'token'    => 'too-cool-for-this-http'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"interval" *: *"30s"/) \
@@ -111,7 +111,7 @@ describe 'consul::check' do
       'http' => 'localhost'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .without_content(/"service_id"/) \
         .without_content(/"notes"/)
     }
@@ -121,7 +121,7 @@ describe 'consul::check' do
       'ttl' => '30s',
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -134,7 +134,7 @@ describe 'consul::check' do
       'service_id' => 'my_service'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -148,7 +148,7 @@ describe 'consul::check' do
       'token' => 'too-cool-for-this-ttl'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"ttl" *: *"30s"/) \
@@ -162,7 +162,7 @@ describe 'consul::check' do
       'interval' => '30s',
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -177,7 +177,7 @@ describe 'consul::check' do
       'service_id' => 'my_service'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"check" *: *\{/) \
@@ -193,7 +193,7 @@ describe 'consul::check' do
       'token'    => 'too-cool-for-this-script'
     }}
     it {
-      should contain_file("/etc/consul/check_my_check.json") \
+      should contain_file("/etc/consul/extras/check_my_check.json") \
         .with_content(/"id" *: *"my_check"/) \
         .with_content(/"name" *: *"my_check"/) \
         .with_content(/"tcp" *: *"localhost:80"/) \
@@ -281,7 +281,7 @@ describe 'consul::check' do
       'service_id' => 'my_service',
       'id' => 'aa/bb',
     }}
-    it { should contain_file("/etc/consul/check_aa_bb.json") \
+    it { should contain_file("/etc/consul/extras/check_aa_bb.json") \
         .with_content(/"id" *: *"aa\/bb"/)
     }
   end
@@ -291,7 +291,7 @@ describe 'consul::check' do
       'service_id' => 'my_service',
       'id' => 'aa/bb/cc',
     }}
-    it { should contain_file("/etc/consul/check_aa_bb_cc.json") \
+    it { should contain_file("/etc/consul/extras/check_aa_bb_cc.json") \
         .with_content(/"id" *: *"aa\/bb\/cc"/)
     }
   end

@@ -14,7 +14,7 @@ describe 'consul::watch' do
       }}
       it {
         expect {
-          should contain_file('/etc/consul/watch_my_watch.json')
+          should contain_file('/etc/consul/extras/watch_my_watch.json')
         }.to raise_error(Puppet::Error, /Watches are only supported in Consul 0.4.0 and above/)
       }
     end
@@ -27,7 +27,7 @@ describe 'consul::watch' do
         'handler' => 'handler_path',
       }}
       it {
-        should contain_file('/etc/consul/watch_my_watch.json')
+        should contain_file('/etc/consul/extras/watch_my_watch.json')
       }
     end
 
@@ -39,7 +39,7 @@ describe 'consul::watch' do
         'handler' => 'handler_path',
       }}
       it {
-        should contain_file('/etc/consul/watch_my_watch.json')
+        should contain_file('/etc/consul/extras/watch_my_watch.json')
       }
     end
   end
@@ -76,7 +76,7 @@ describe 'consul::watch' do
       'handler' => 'handler_path',
     }}
     it {
-      should contain_file('/etc/consul/watch_my_watch.json') \
+      should contain_file('/etc/consul/extras/watch_my_watch.json') \
           .with_content(/"handler" *: *"handler_path"/) \
           .with_content(/"type" *: *"nodes"/)
     }
@@ -91,7 +91,7 @@ describe 'consul::watch' do
       'token' => 'tokenValue',
     }}
     it {
-      should contain_file('/etc/consul/watch_my_watch.json') \
+      should contain_file('/etc/consul/extras/watch_my_watch.json') \
           .with_content(/"datacenter" *: *"dcName"/) \
           .with_content(/"token" *: *"tokenValue"/)
     }
@@ -116,7 +116,7 @@ describe 'consul::watch' do
           'key'     => 'KeyName',
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"type" *: *"key"/) \
             .with_content(/"key" *: *"KeyName"/)
         }
@@ -142,7 +142,7 @@ describe 'consul::watch' do
           'keyprefix' => 'keyPref',
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"type" *: *"keyprefix"/) \
             .with_content(/"prefix" *: *"keyPref"/)
         }
@@ -168,7 +168,7 @@ describe 'consul::watch' do
           'service'   => 'serviceName',
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"type" *: *"service"/) \
             .with_content(/"service" *: *"serviceName"/)
         }
@@ -184,7 +184,7 @@ describe 'consul::watch' do
           'passingonly' => true
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"tag" *: *"serviceTagName"/) \
             .with_content(/"passingonly" *: *true/)
         }
@@ -198,7 +198,7 @@ describe 'consul::watch' do
           'handler'   => 'handler_path',
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"type" *: *"checks"/)
         }
       end
@@ -212,7 +212,7 @@ describe 'consul::watch' do
           'state'   => 'serviceState',
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"service" *: *"serviceName"/) \
             .with_content(/"state" *: *"serviceState"/)
         }
@@ -226,7 +226,7 @@ describe 'consul::watch' do
           'handler'   => 'handler_path',
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"type" *: *"event"/)
         }
       end
@@ -239,7 +239,7 @@ describe 'consul::watch' do
           'event_name'=> 'eventName',
         }}
         it {
-          should contain_file('/etc/consul/watch_my_watch.json') \
+          should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"name" *: *"eventName"/)
         }
       end
@@ -251,7 +251,7 @@ describe 'consul::watch' do
         'handler' => 'handler_path'
       }}
       it {
-        should contain_file('/etc/consul/watch_my_watch.json') \
+        should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"type" *: *"nodes"/)
       }
     end
@@ -262,7 +262,7 @@ describe 'consul::watch' do
         'handler' => 'handler_path'
       }}
       it {
-        should contain_file('/etc/consul/watch_my_watch.json') \
+        should contain_file('/etc/consul/extras/watch_my_watch.json') \
             .with_content(/"type" *: *"services"/)
       }
     end
@@ -285,7 +285,7 @@ describe 'consul::watch' do
       'handler' => 'handler_path',
     }}
     it {
-      should contain_file('/etc/consul/watch_my_watch.json') \
+      should contain_file('/etc/consul/extras/watch_my_watch.json') \
           .that_notifies("Class[consul::reload_service]") \
     }
   end
