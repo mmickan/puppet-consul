@@ -24,6 +24,7 @@ class consul::config(
           owner   => 'root',
           group   => 'root',
           content => template('consul/consul.upstart.erb'),
+          notify  => $consul::notify_service,
         }
         file { '/etc/init.d/consul':
           ensure => link,
@@ -31,6 +32,7 @@ class consul::config(
           owner  => 'root',
           group  => 'root',
           mode   => '0755',
+          notify => $consul::notify_service,
         }
       }
       'systemd' : {
@@ -39,11 +41,12 @@ class consul::config(
           owner   => 'root',
           group   => 'root',
           content => template('consul/consul.systemd.erb'),
-        }~>
+        } ~>
         exec { 'consul-systemd-reload':
           command     => 'systemctl daemon-reload',
           path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
           refreshonly => true,
+          notify      => $consul::notify_service,
         }
       }
       'sysv' : {
@@ -51,7 +54,8 @@ class consul::config(
           mode    => '0555',
           owner   => 'root',
           group   => 'root',
-          content => template('consul/consul.sysv.erb')
+          content => template('consul/consul.sysv.erb'),
+          notify  => $consul::notify_service,
         }
       }
       'debian' : {
@@ -59,7 +63,8 @@ class consul::config(
           mode    => '0555',
           owner   => 'root',
           group   => 'root',
-          content => template('consul/consul.debian.erb')
+          content => template('consul/consul.debian.erb'),
+          notify  => $consul::notify_service,
         }
       }
       'sles' : {
@@ -67,7 +72,8 @@ class consul::config(
           mode    => '0555',
           owner   => 'root',
           group   => 'root',
-          content => template('consul/consul.sles.erb')
+          content => template('consul/consul.sles.erb'),
+          notify  => $consul::notify_service,
         }
       }
       'launchd' : {
@@ -75,7 +81,8 @@ class consul::config(
           mode    => '0644',
           owner   => 'root',
           group   => 'wheel',
-          content => template('consul/consul.launchd.erb')
+          content => template('consul/consul.launchd.erb'),
+          notify  => $consul::notify_service,
         }
       }
       default : {
@@ -90,6 +97,15 @@ class consul::config(
     group   => $consul::group,
     purge   => $purge,
     recurse => $purge,
+    notify  => $consul::notify_service,
+  } ->
+  file { "${consul::config_dir}/extras":
+    ensure  => 'directory',
+    owner   => $consul::user,
+    group   => $consul::group,
+    purge   => $purge,
+    recurse => $purge,
+    notify  => Class['consul::reload_service'],
   } ->
   file { 'consul config.json':
     ensure  => present,
@@ -98,6 +114,7 @@ class consul::config(
     group   => $consul::group,
     mode    => $consul::config_mode,
     content => consul_sorted_json($config_hash, $consul::pretty_config, $consul::pretty_config_indent),
+    notify  => $consul::notify_service,
   }
 
 }

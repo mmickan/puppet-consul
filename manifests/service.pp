@@ -59,7 +59,7 @@ define consul::service(
   }
 
   $escaped_id = regsubst($id,'\/','_','G')
-  file { "${consul::config_dir}/service_${escaped_id}.json":
+  file { "${consul::config_dir}/extras/service_${escaped_id}.json":
     ensure  => $ensure,
     owner   => $consul::user,
     group   => $consul::group,
