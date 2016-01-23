@@ -18,6 +18,12 @@
 # [*tags*]
 #   Array of strings.
 #
+# [*tag_override*]
+#   If set to true, tags can be updated via the HTTP API and will not revert
+#   to those specified in $tags.  If set to false, changes to the tags will
+#   be reset to those specified in $tags on the next sync (usually within a
+#   few minutes).
+#
 # [*address*]
 #   IP address the service is running at.
 #
@@ -35,6 +41,7 @@ define consul::service(
   $service_name   = $title,
   $id             = $title,
   $tags           = [],
+  $tag_override   = undef,
   $address        = undef,
   $port           = undef,
   $checks         = [],
@@ -45,13 +52,14 @@ define consul::service(
   consul_validate_checks($checks)
 
   $basic_hash = {
-    'id'      => $id,
-    'name'    => $service_name,
-    'address' => $address,
-    'port'    => $port,
-    'tags'    => $tags,
-    'checks'  => $checks,
-    'token'   => $token,
+    'id'                => $id,
+    'name'              => $service_name,
+    'address'           => $address,
+    'port'              => $port,
+    'tags'              => $tags,
+    'enabletagoverride' => $tag_override,
+    'checks'            => $checks,
+    'token'             => $token,
   }
 
   $service_hash = {
