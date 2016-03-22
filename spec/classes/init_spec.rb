@@ -46,14 +46,22 @@ describe 'consul' do
   end
 
   context 'consul::config should notify consul::run_service' do
-    it { should contain_class('consul::config').that_notifies(['Class[consul::run_service]']) }
+    it { should contain_file('/etc/consul').that_notifies(['Class[consul::run_service]']) }
+  end
+
+  context 'consul::config extras should not notify consul::run_service' do
+    it { should_not contain_file('/etc/consul/extras').that_notifies(['Class[consul::run_service]']) }
+  end
+
+  context 'consul config extras should notify consul::reload_service' do
+    it { should contain_file('/etc/consul/extras').that_notifies(['Class[consul::reload_service]']) }
   end
 
   context 'consul::config should not notify consul::run_service on config change' do
     let(:params) {{
       :restart_on_change => false
     }}
-    it { should_not contain_class('consul::config').that_notifies(['Class[consul::run_service]']) }
+    it { should_not contain_file('/etc/consul').that_notifies(['Class[consul::run_service]']) }
   end
 
   context 'When joining consul to a wan cluster by a known URL' do

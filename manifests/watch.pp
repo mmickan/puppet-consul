@@ -134,7 +134,7 @@ define consul::watch(
   }
 
   File[$consul::config_dir] ->
-  file { "${consul::config_dir}/watch_${id}.json":
+  file { "${consul::config_dir}/extras/watch_${id}.json":
     ensure  => $ensure,
     owner   => $consul::user,
     group   => $consul::group,

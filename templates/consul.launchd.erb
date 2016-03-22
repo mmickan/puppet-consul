@@ -18,6 +18,8 @@
             <string>agent</string>
             <string>-config-dir</string>
             <string><%= scope.lookupvar('consul::config_dir') %></string>
+            <string>-config-dir</string>
+            <string><%= scope.lookupvar('consul::config_dir') %>/extras</string>
 <% require 'shellwords' %>
 <% for extra_option in Shellwords.split(scope.lookupvar('consul::extra_options')) %>
             <string><%= extra_option %></string>
